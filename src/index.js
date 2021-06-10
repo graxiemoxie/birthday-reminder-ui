@@ -7,24 +7,36 @@ const title = "Birthday Reminder";
 
 function BirthdayReminder() {
   const [birthDays, setDays] = React.useState(data);
+  const removeData = (id) => {
+    let newBirthDays = birthDays.filter((birthDay) => birthDay.id !== id);
+    setDays(newBirthDays);
+  };
   return (
     <>
-      <h1>{title}</h1>
+      <section className="page-wrapper">
+        <h1>{title}</h1>
 
-      {birthDays.map((birthDay) => {
-        const { id, name, day, img } = birthDay;
-        return (
-          <div className="container" key={id}>
-            <div className="birthday">
-              <div className="image-wrapper">
-                <img src={img} alt="" />
+        {birthDays.map((birthDay) => {
+          const { id, name, day, img } = birthDay;
+          return (
+            <div className="container" key={id}>
+              <div className="birthday">
+                <div className="image-wrapper">
+                  <img src={img} alt="" />
+                </div>
+                <div className="month">
+                  <h4>{name}</h4>
+                  <p>{day}</p>
+                </div>
+                <button type="button" className="btn" onClick={() => removeData(id)}>remove</button>
               </div>
-              <h4>{name}</h4>
-              <h2>{day}</h2>
             </div>
-          </div>
-        );
-      })}
+
+          );
+        })}
+                      <button className='clear-data-button' onClick={() => setDays([])}>clear data</button>
+
+      </section>
     </>
   );
 }
