@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from "react";
+import ReactDom from "react-dom";
+import { data } from "./data";
+import "./index.css";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const title = "Birthday Reminder";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function BirthdayReminder() {
+  const [birthDays, setDays] = React.useState(data);
+  return (
+    <>
+      <h1>{title}</h1>
+
+      {birthDays.map((birthDay) => {
+        const { id, name, day, img } = birthDay;
+        return (
+          <div className="container" key={id}>
+            <div className="birthday">
+              <div className="image-wrapper">
+                <img src={img} alt="" />
+              </div>
+              <h4>{name}</h4>
+              <h2>{day}</h2>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+ReactDom.render(<BirthdayReminder />, document.getElementById("root"));
